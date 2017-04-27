@@ -30,7 +30,20 @@ public class TestJdbcDaoController {
 			
 		}
 //		
-		
+		//curl -H "Content-Type: application/json" -X POST  --data '[{"host":"172.30.80.111","path":"/adv/test?appid=10","code":444,"time_day":20170422,"num":111,"time":123456789,"time_min":"182959"}]'  http://172.30.80.89:9999/data/insert
+		@RequestMapping(value="/data/insert",method=RequestMethod.POST)
+		public Object insertData(@RequestBody List<LogAccessNum> logobj ){
+//			logger.info(Arrays.toString(logobj.toArray()));
+				
+			
+		for (LogAccessNum logAccessNum : logobj) {
+			logger.info(logAccessNum.getHost());
+		}
+//		logger.info(StringUtils.join(logobj.toArray()));
+			List datalist = new ArrayList() ; 
+			dataService.insertData(logobj) ;
+			return "ok" ; 
+		}
 //		@Autowired
 //		private JdbcTemplate jdbcTemplate ;
 		
