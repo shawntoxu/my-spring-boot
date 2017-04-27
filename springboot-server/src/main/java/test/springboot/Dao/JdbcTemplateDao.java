@@ -47,4 +47,47 @@ public class JdbcTemplateDao {
 	        return list;
 	    }
 	
+	   public Object insertData(final List<LogAccessNum> datalist){
+		   /**
+		    * table 
+		    * 	id	     int(11)
+				host	 varchar(255)
+				path	 varchar(255)
+				code	 int(3)
+				time_day int(11)
+				num	     int(11)
+				time	 int(11)
+				time_min varchar(10)
+		    */
+		   String isql = "insert into log.log_access_num( `host`, `path`, `code`, `time_day`, `num`, `time`, `time_min`) values(?,?,?,?,?,?,?)" ;
+		   jdbcTemplate.batchUpdate(isql, new BatchPreparedStatementSetter() {
+			 
+			@Override
+			public void setValues(PreparedStatement ps, int i) throws SQLException {
+				// TODO Auto-generated method stub
+				LogAccessNum oo = datalist.get(i);
+				
+				ps.setString(1, oo.getHost());
+				ps.setString(2, oo.getPath());
+				ps.setInt(3, oo.getCode());
+				ps.setInt(4, oo.getTime_day());
+				ps.setInt(5, oo.getNum());
+				ps.setInt(6, oo.getTime());
+				ps.setString(7, oo.getTime_min());
+				
+			}
+			
+			@Override
+			public int getBatchSize() {
+				// TODO Auto-generated method stub
+				return datalist.size();
+			}
+		});
+		   
+		   
+		   return null ;
+	   }
+	   
+	
+	
 }
