@@ -21,4 +21,11 @@ public class DataService {
 		return  jdbcTemplateDao.getDataList(sql);
 		
 	}
+		
+	public Object insertData(List datalist){
+		String sql = "" ;
+		jdbcTemplateDao.insertData(datalist);
+		logger.info("");
+		return null ; 
+	}
 }
